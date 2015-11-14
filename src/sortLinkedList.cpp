@@ -12,12 +12,81 @@ NOTES: Without using extra array or linked list.
 */
 
 #include <stdio.h>
+#include<stdlib.h>
 
-struct node {
+struct node 
+{
 	int num;
 	struct node *next;
 };
 
-struct node * sortLinkedList(struct node *head) {
-	return NULL;
+int getLength(struct node *head)
+{
+	int length = 0;
+	while (head != NULL)
+	{
+		head = head->next;
+		length++;
+	}
+	return length;
+}
+
+void heapUp(int *heap, int index)
+{
+	int value = heap[index];
+	while (index>1 && heap[index / 2]<value)
+	{
+		heap[index] = heap[index / 2];
+		index /= 2;
+	}
+	heap[index] = value;
+}
+
+void heapDown(int *heap, int index, int length)
+{
+	int value = heap[index], child = index * 2;
+	while (child <= length)
+	{
+		if (child<length&&heap[child]<heap[child + 1])
+			child++;
+		if (heap[child]<heap[child / 2])
+			break;
+		heap[child / 2] = heap[child];
+		child *= 2;
+	}
+	heap[child / 2] = value;
+}
+
+struct node * sortLinkedList(struct node *head) 
+{
+	struct node *tempHead = head;
+	int length, index = 1, tempLength, tempvar, *heap;
+	if (head == NULL)
+		return NULL;
+	length = getLength(tempHead);
+	heap = (int *)malloc(sizeof(int)*(length + 1));
+	tempHead = head;
+	do
+	{
+		heap[index] = tempHead->num;
+		heapUp(heap, index);
+		tempHead = tempHead->next;
+		index++;
+	} while (tempHead != NULL);
+	tempLength = length;
+	for (index = 1; index <= length; index++)
+	{
+		tempvar = heap[1];
+		heap[1] = heap[tempLength];
+		heap[tempLength] = tempvar;
+		tempLength--;
+		heapDown(heap, 1, tempLength);
+	}
+	tempHead = head;
+	for (index = 1; index <= length; index++)
+	{
+		tempHead->num = heap[index];
+		tempHead = tempHead->next;
+	}
+	return head;
 }
