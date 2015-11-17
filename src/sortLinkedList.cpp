@@ -31,6 +31,34 @@ int getLength(struct node *head)
 	return length;
 }
 
+struct node * sortLinkedList(struct node *head)
+{
+	struct node *tempHead = head,*nodei,*nodej;
+	int length,i,j,temp;
+	if (head == NULL)
+		return NULL;
+	length = getLength(tempHead);
+	for (nodei = head, i = 0; i < length; i++)
+	{
+		for (nodej = head, j = 0; j < length - i - 1; j++)
+		{
+			if (nodej->num > nodej->next->num)
+			{
+				temp = nodej->next->num;
+				nodej->next->num = nodej->num;
+				nodej->num = temp;
+			}
+			nodej = nodej->next;
+		}
+		nodei = nodei->next;
+	}
+	return head;
+}
+
+/*
+METHOD 2:
+Actually it violates basic condions of given problem
+
 void heapUp(int *heap, int index)
 {
 	int value = heap[index];
@@ -90,3 +118,5 @@ struct node * sortLinkedList(struct node *head)
 	}
 	return head;
 }
+
+*/
