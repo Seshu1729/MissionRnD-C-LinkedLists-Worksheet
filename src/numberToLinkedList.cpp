@@ -29,20 +29,16 @@ struct node *getNode()
 
 struct node * numberToLinkedList(int N)
 {
-	struct node *start, *newNode;
+	struct node *start=NULL, *newNode;
 	if (N<0)
 		N *= -1;
-	start = getNode();
-	start->num = N % 10;
-	start->next = NULL;
-	N /= 10;
-	while (N)
+	do
 	{
 		newNode = getNode();
 		newNode->num = N % 10;
 		newNode->next = start;
 		start = newNode;
 		N /= 10;
-	}
+	} while (N);
 	return start;
 }
