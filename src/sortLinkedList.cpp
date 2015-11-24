@@ -1,3 +1,4 @@
+
 /*
 OVERVIEW: Given an unsorted single linked list, sort the linked list without using extra array or linked list.
 E.g.: 4->2->1->5->3, output is 1->2->3->4->5.
@@ -9,6 +10,7 @@ OUTPUT: Sort the linked list.
 ERROR CASES: Return NULL for error cases.
 
 NOTES: Without using extra array or linked list.
+
 */
 
 #include <stdio.h>
@@ -20,27 +22,15 @@ struct node
 	struct node *next;
 };
 
-int getLength(struct node *head)
-{
-	int length = 0;
-	while (head != NULL)
-	{
-		head = head->next;
-		length++;
-	}
-	return length;
-}
-
 struct node * sortLinkedList(struct node *head)
 {
-	struct node *tempHead = head,*nodei,*nodej;
-	int length,i,j,temp;
+	struct node *nodei,*nodej,*sortCheck=NULL;
+	int temp;
 	if (head == NULL)
 		return NULL;
-	length = getLength(tempHead);
-	for (nodei = head, i = 0; i < length; i++)
+	for (nodei = head; nodei->next!=NULL; nodei = nodei->next)
 	{
-		for (nodej = head, j = 0; j < length - i - 1; j++)
+		for (nodej = head; nodej->next != sortCheck; nodej = nodej->next)
 		{
 			if (nodej->num > nodej->next->num)
 			{
@@ -48,9 +38,8 @@ struct node * sortLinkedList(struct node *head)
 				nodej->next->num = nodej->num;
 				nodej->num = temp;
 			}
-			nodej = nodej->next;
 		}
-		nodei = nodei->next;
+		sortCheck = nodej;
 	}
 	return head;
 }

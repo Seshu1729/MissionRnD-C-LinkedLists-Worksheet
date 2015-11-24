@@ -21,22 +21,24 @@ struct node
 
 struct node * removeEveryKthNode(struct node *head, int K)
 {
-	struct node *myNode;
+	struct node *tempHead;
 	int i;
 	if (K < 2||head==NULL)
 		return NULL;
-	myNode = head;
+	tempHead = head;
 	do
 	{
 		for (i = 1; i < K - 1; i++)
 		{
-			myNode = myNode->next;
-			if (myNode == NULL)
+			tempHead = tempHead->next;
+			if (tempHead == NULL)
 				return head;
 		}
-		if (myNode->next != NULL)
-			myNode->next = myNode->next->next;
-		myNode = myNode->next;
-	} while (myNode != NULL);
+		if (tempHead->next != NULL)
+		{
+			tempHead->next = tempHead->next->next;
+			tempHead = tempHead->next;
+		}
+	} while (tempHead != NULL);
 	return head;
 }
