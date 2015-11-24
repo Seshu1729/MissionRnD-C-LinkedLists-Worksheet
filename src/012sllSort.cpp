@@ -62,6 +62,7 @@ void sll_012_sort(struct node *head)
 
 /*
 METHOD 2:
+
 void sll_012_sort(struct node *head)
 {
 	int cnt[3] = { 0, 0, 0 }, index = -1;

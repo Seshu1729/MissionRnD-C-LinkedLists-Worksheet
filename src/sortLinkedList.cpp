@@ -20,6 +20,8 @@ struct node
 	struct node *next;
 };
 
+//METHOD 1:
+
 struct node * sortLinkedList(struct node *head)
 {
 	struct node *nodei, *nodej, *sortCheck = NULL;
@@ -44,6 +46,7 @@ struct node * sortLinkedList(struct node *head)
 
 /*
 METHOD 2:
+
 int getLength(struct node *head)
 {
 	int length = 0;
@@ -82,6 +85,7 @@ struct node * sortLinkedList(struct node *head)
 
 
 METHOD 3:
+
 Actually it violates basic condions of given problem
 
 void heapUp(int *heap, int index)
