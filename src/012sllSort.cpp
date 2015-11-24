@@ -16,6 +16,8 @@ NOTES: Only 0,1,2, will be in sll nodes
 #include <stdio.h>
 #include <malloc.h>
 
+//METHOD 1
+
 struct node 
 {
 	int data;
@@ -42,7 +44,7 @@ void sll_012_sort(struct node *head)
 			pointer1 = pointer1->next;
 		}
 		pointer2 = pointer2->next;
-	}while (pointer2 != NULL);
+	} while (pointer2 != NULL);
 	if (pointer1 != NULL)
 	{
 		pointer2 = pointer1;
@@ -57,3 +59,28 @@ void sll_012_sort(struct node *head)
 		} while (pointer2 != NULL);
 	}
 }
+
+/*
+METHOD 2:
+void sll_012_sort(struct node *head)
+{
+	int cnt[3] = { 0, 0, 0 }, index = -1;
+	struct node *tempHead = head;
+	while (tempHead != NULL)
+	{
+		cnt[tempHead->data]++;
+		tempHead = tempHead->next;
+	}
+	tempHead = head;
+	while (++index < 3)
+	{
+		while (cnt[index])
+		{
+			tempHead->data = index;
+			tempHead = tempHead->next;
+			cnt[index]--;
+		}
+	}
+}
+
+*/
